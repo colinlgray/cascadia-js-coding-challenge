@@ -1,0 +1,15 @@
+{
+  "name": "study-questions",
+  "version": "1.0.0",
+  "description": "study files",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "watch": "mocha --watch"
+  },
+  "author": "Colin Gray",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^3.5.3"
+  }
+}
