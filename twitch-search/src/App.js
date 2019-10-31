@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.jpg";
 import SearchBox from "./components/SearchBox";
+import GameInfo from "./components/GameInfo";
 import "./App.css";
 
 function App() {
+  const [game, setGame] = useState(null);
   return (
     <div className="App">
       <header
@@ -23,12 +25,13 @@ function App() {
           Twitch Game Search
         </h1>
       </header>
-      <div>
-        <p>
-          Search for your favorite games in the search box below. Click on their
-          name to find out more information on them.
-        </p>
-        <SearchBox />
+      <div style={{ display: "flex" }}>
+        <SearchBox
+          onSelect={game => {
+            setGame(game);
+          }}
+        />
+        <GameInfo game={game} />
       </div>
     </div>
   );

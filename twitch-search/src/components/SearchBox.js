@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-function Search() {
+function Search({ onSelect }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const api = axios.create({
@@ -22,6 +22,10 @@ function Search() {
 
   return (
     <div>
+      <p>
+        Search for your favorite games in the search box below. Click on their
+        name to find out more information on them.
+      </p>
       <div
         style={{
           width: "200px",
@@ -47,9 +51,18 @@ function Search() {
         />
       </div>
       <div>
-        <ul>
+        <ul style={{ listStyleType: "none" }}>
           {results.map(game => {
-            return <div key={game._id}>{game.name}</div>;
+            return (
+              <li
+                onClick={() => {
+                  onSelect(game);
+                }}
+                key={game._id}
+              >
+                <div>{game.name}</div>
+              </li>
+            );
           })}
         </ul>
       </div>
