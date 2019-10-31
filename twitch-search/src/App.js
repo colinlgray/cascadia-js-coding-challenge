@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import logo from "./logo.jpg";
 import SearchBox from "./components/SearchBox";
-import GameInfo from "./components/GameInfo";
+import Sidebar from "./components/Sidebar";
 import "./App.css";
 
 function App() {
   const [game, setGame] = useState(null);
   return (
-    <div className="App">
+    <div className="App" style={{ width: "100vw", height: "100vh" }}>
       <header
         style={{
-          height: "100px",
+          height: "120px",
           display: "flex",
           alignItems: "center",
           background: "#6441a5"
@@ -25,13 +25,13 @@ function App() {
           Twitch Game Search
         </h1>
       </header>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", height: "100%" }}>
         <SearchBox
           onSelect={game => {
             setGame(game);
           }}
         />
-        <GameInfo game={game} />
+        <Sidebar game={game} />
       </div>
     </div>
   );

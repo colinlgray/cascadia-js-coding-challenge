@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDebouncedCallback } from "use-debounce";
+
+const liStyle = {
+  border: "1px solid gray",
+  textAlign: "initial",
+  width: "200px",
+  margin: "2px auto",
+  padding: "4px"
+};
+
 function Search({ onSelect }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -10,19 +20,20 @@ function Search({ onSelect }) {
       Accept: "application/vnd.twitchtv.v5+json"
     }
   });
-  useEffect(() => {
+
+  const [debouncedCallback] = useDebouncedCallback(() => {
     if (query) {
       api.get(`search/games?query=${encodeURI(query)}`).then(res => {
-        if (res.data && res.data.games) {
-          setResults(res.data.games);
-        }
+        setResults(res.data.games);
       });
     }
-  }, [query, api]);
+  }, 250);
+
+  useEffect(debouncedCallback, [query, api]);
 
   return (
-    <div>
-      <p>
+    <div style={{ overflowY: "scroll" }}>
+      <p style={{ padding: "24px" }}>
         Search for your favorite games in the search box below. Click on their
         name to find out more information on them.
       </p>
@@ -39,8 +50,7 @@ function Search({ onSelect }) {
         <input
           style={{
             marginTop: "4px",
-            height: "24px",
-            border: "2px solid black"
+            height: "24px"
           }}
           type="text"
           label="Search"
@@ -51,19 +61,30 @@ function Search({ onSelect }) {
         />
       </div>
       <div>
-        <ul style={{ listStyleType: "none" }}>
-          {results.map(game => {
-            return (
-              <li
-                onClick={() => {
-                  onSelect(game);
-                }}
-                key={game._id}
-              >
-                <div>{game.name}</div>
-              </li>
-            );
-          })}
+        <ul style={{ listStyleType: "none", padding: 0 }}>
+          {results === null && <li style={liStyle}>No Results</li>}
+          {results &&
+            results.map(game => {
+              return (
+                <li
+                  tabIndex={0}
+                  role="button"
+                  style={liStyle}
+                  onClick={() => {
+                    onSelect(game);
+                  }}
+                  onKeyPress={e => {
+                    var code = e.keyCode || e.which;
+                    if (code === 13) {
+                      onSelect(game);
+                    }
+                  }}
+                  key={game._id}
+                >
+                  <div>{game.name}</div>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>
