@@ -39,27 +39,24 @@ describe("Problem 1", () => {
 
 describe("Problem 2", () => {
   it("100000", () => {
-    assert.equal(solutions.numberInWords(100000, "One million"));
+    assert.equal(solutions.numberInWords(1000000), "One million");
   });
-  it("154512", () => {
+  it("1545120", () => {
     assert.equal(
-      solutions.numberInWords(
-        154512,
-        "One million, five hundred and forty-five thousand, one hundred and twenty"
-      )
+      solutions.numberInWords(1545120),
+      "One million, five hundred and forty-five thousand, one hundred and twenty"
     );
   });
-  it("999999999.9", () => {
+  it("999999999.99", () => {
     assert.equal(
-      solutions.numberInWords(
-        999999999.9,
-        "Nine hundred and ninety-nine million, nine hundred and ninety-nine thousand, nine hundred and ninety-nine and 99/100"
-      )
+      solutions.numberInWords(999999999.99),
+      "Nine hundred and ninety-nine million, nine hundred and ninety-nine thousand, nine hundred and ninety-nine and 99/100"
     );
   });
-  it("245.1", () => {
+  it("245.13", () => {
     assert.equal(
-      solutions.numberInWords(245.1, "Two hundred and forty-five and 13/100")
+      solutions.numberInWords(245.13),
+      "Two hundred and forty-five and 13/100"
     );
   });
 });
