@@ -1,8 +1,7 @@
 {
-  "name": "study-questions",
+  "name": "cascadia-js-coding-challenge",
   "version": "1.0.0",
-  "description": "study files",
-  "main": "index.js",
+  "description": "For coding challenge",
   "scripts": {
     "test": "mocha",
     "watch": "mocha --watch"
